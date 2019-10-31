@@ -19,6 +19,12 @@ class Api::V1::BooksController < ApplicationController
         #langRestrict=en is restricting to only english books
         response_string = RestClient.get("https://www.googleapis.com/books/v1/volumes?q=#{search_type}\"#{searchable_term}\"&langRestrict=en&maxResults=40&key=#{APIKEY}")
         response_hash = JSON.parse(response_string)
+        #if there were 0 items found, send back an empty array of books
+        if response_hash["totalItems"] == 0
+            render json: {
+                totalItems: response_hash["totalItems"],
+                books: []
+            }
         #send the books response back to the frontend in json
         # render json: response_hash
         #small thumbnail zoom=5
@@ -26,27 +32,29 @@ class Api::V1::BooksController < ApplicationController
         #small zoom=2
         #medium zoom=3
         #large zoom=4
-        renderBooks = response_hash["items"].map do |book|
-            bookInfo = book["volumeInfo"]
-            {
-                id: book["id"],
-                authors: bookInfo["authors"],
-                average_rating: bookInfo["averageRating"],
-                genres: bookInfo["categories"],
-                description: bookInfo["description"],
-                #some books don't have the imageLinks hash within volumeInfo, need to check that it exists before grabbing the image
-                image: bookInfo["imageLinks"] ? bookInfo["imageLinks"]["thumbnail"] : false,
-                url: bookInfo["previewLink"],
-                page_count: bookInfo["pageCount"],
-                published_date: bookInfo["publishedDate"],
-                publisher: bookInfo["publisher"],
-                title: bookInfo["title"],
-                subtitle: bookInfo["subtitle"]
+        else
+            renderBooks = response_hash["items"].map do |book|
+                bookInfo = book["volumeInfo"]
+                {
+                    id: book["id"],
+                    authors: bookInfo["authors"],
+                    average_rating: bookInfo["averageRating"],
+                    genres: bookInfo["categories"],
+                    description: bookInfo["description"],
+                    #some books don't have the imageLinks hash within volumeInfo, need to check that it exists before grabbing the image
+                    image: bookInfo["imageLinks"] ? bookInfo["imageLinks"]["thumbnail"] : false,
+                    url: bookInfo["previewLink"],
+                    page_count: bookInfo["pageCount"],
+                    published_date: bookInfo["publishedDate"],
+                    publisher: bookInfo["publisher"],
+                    title: bookInfo["title"],
+                    subtitle: bookInfo["subtitle"]
+                }
+            end
+            render json: {
+                totalItems: response_hash["totalItems"],
+                books: renderBooks
             }
         end
-        render json: {
-            totalItems: response_hash["totalItems"],
-            books: renderBooks
-        }
     end
 end
