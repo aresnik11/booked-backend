@@ -18,6 +18,15 @@ class Api::V1::BooksController < ApplicationController
     #         render json: { errors: 'No book found' }, status: :not_found
     #     end
     # end
+
+    def create
+        book = Book.find_or_create_by(book_params)
+        if book.valid?
+            render json: book
+        else
+            render json: { errors: book.errors.full_messages }, status: :not_acceptable
+        end
+    end
     
     def search
         #grabbing search term and search type from fetch headers
@@ -50,10 +59,9 @@ class Api::V1::BooksController < ApplicationController
             renderBooks = response_hash["items"].map do |book|
                 bookInfo = book["volumeInfo"]
                 {
-                    id: book["id"],
-                    authors: bookInfo["authors"],
+                    volume_id: book["id"],
+                    author: bookInfo["authors"] ? bookInfo["authors"][0] : false,
                     average_rating: bookInfo["averageRating"],
-                    genres: bookInfo["categories"],
                     description: bookInfo["description"],
                     #some books don't have the imageLinks hash within volumeInfo, need to check that it exists before grabbing the image
                     image: bookInfo["imageLinks"] ? bookInfo["imageLinks"]["thumbnail"] : false,
@@ -70,5 +78,11 @@ class Api::V1::BooksController < ApplicationController
                 books: renderBooks
             }
         end
+    end
+
+    private
+
+    def book_params
+        params.require(:book).permit(:title, :publisher, :published_date, :average_rating, :page_count, :image, :description, :url, :author, :subtitle, :volume_id)
     end
 end
