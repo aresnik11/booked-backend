@@ -4,10 +4,7 @@ Rails.application.routes.draw do
   #all routes will be /api/v1/<route>
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:show]
-      resources :authors, only: [:index, :show]
-      resources :book_lists
-      resources :book_list_books
+      resources :book_lists, only: [:create]
       get "/search", to: "books#search"
       post "/login", to: "auth#login"
       post "/signup", to: "users#create"
