@@ -4,7 +4,7 @@ class Api::V1::AuthorsController < ApplicationController
         if author
             render json: author
         else
-            render json: { message: 'No author found' }, status: :not_found
+            render json: { errors: 'No author found' }, status: :not_found
         end
     end
 end

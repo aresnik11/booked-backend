@@ -2,7 +2,7 @@ require 'rest-client'
 require 'json'
 require 'dotenv/load'
 
-APIKEY = ENV['GOOGLE_BOOKS_API_KEY']
+API_KEY = ENV['GOOGLE_BOOKS_API_KEY']
 
 class Api::V1::BooksController < ApplicationController
     def search
@@ -17,7 +17,7 @@ class Api::V1::BooksController < ApplicationController
         #author/genre/title search format is q=intitle:"search+term" q=inauthor:"search+term" q=subject:"search+term"
         #search type is empty string if all, or the specific search format (i.e. intitle:)
         #langRestrict=en is restricting to only english books
-        response_string = RestClient.get("https://www.googleapis.com/books/v1/volumes?q=#{search_type}\"#{searchable_term}\"&langRestrict=en&maxResults=40&key=#{APIKEY}")
+        response_string = RestClient.get("https://www.googleapis.com/books/v1/volumes?q=#{search_type}\"#{searchable_term}\"&langRestrict=en&maxResults=40&key=#{API_KEY}")
         response_hash = JSON.parse(response_string)
         #if there were 0 items found, send back an empty array of books
         if response_hash["totalItems"] == 0
