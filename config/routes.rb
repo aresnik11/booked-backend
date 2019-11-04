@@ -7,7 +7,9 @@ Rails.application.routes.draw do
       resources :book_lists, only: [:create, :destroy]
       resources :books, only: [:create]
       resources :book_list_books, only: [:create]
+      resources :users, only: [:index]
       delete "/book_list_books", to: "book_list_books#destroy"
+      post "/share_book_lists", to: "book_lists#share"
       get "/search", to: "books#search"
       post "/login", to: "auth#login"
       get "/auto_login", to: "auth#auto_login"

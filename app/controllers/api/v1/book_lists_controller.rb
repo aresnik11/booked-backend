@@ -32,6 +32,18 @@ class Api::V1::BookListsController < ApplicationController
         end
     end
 
+    def share
+        #find book list passed in params
+        shared_book_list = BookList.find_by(id: params[:book_list_id])
+        #create a new booklist with the same name as shared book list, but for the user that we want to share with (from params)
+        book_list = BookList.create({name: "Shared with me - #{shared_book_list.name}", user_id: params[:user_id]})
+        #create booklist books for each book in the shared book list for our new book list
+        shared_book_list.books.each do |book|
+            BookListBook.create(book_id: book.id, book_list_id: book_list.id)
+        end
+        render json: book_list
+    end
+
     private
 
     def book_list_params
