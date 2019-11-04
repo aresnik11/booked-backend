@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   #all routes will be /api/v1/<route>
   namespace :api do
     namespace :v1 do
-      resources :book_lists, only: [:create]
+      resources :book_lists, only: [:create, :destroy]
       resources :books, only: [:create]
       resources :book_list_books, only: [:create]
-      delete "/book_list_books/delete", to: "book_list_books#delete"
+      delete "/book_list_books", to: "book_list_books#destroy"
       get "/search", to: "books#search"
       post "/login", to: "auth#login"
       post "/signup", to: "users#create"

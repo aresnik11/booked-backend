@@ -22,6 +22,16 @@ class Api::V1::BookListsController < ApplicationController
         end
     end
 
+    def destroy
+        book_list = BookList.find_by(id: params[:id])
+        if book_list
+            book_list.destroy
+            render json: book_list
+        else
+            render json: { errors: 'No book list found' }, status: :not_found
+        end
+    end
+
     private
 
     def book_list_params
