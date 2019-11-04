@@ -10,8 +10,9 @@ Rails.application.routes.draw do
       delete "/book_list_books", to: "book_list_books#destroy"
       get "/search", to: "books#search"
       post "/login", to: "auth#login"
+      get "/auto_login", to: "auth#auto_login"
       post "/signup", to: "users#create"
-			get "/auto_login", to: "auth#auto_login"
+      delete "/users", to: "users#destroy"
     end
   end
 end

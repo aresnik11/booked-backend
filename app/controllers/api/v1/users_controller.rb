@@ -18,12 +18,17 @@ class Api::V1::UsersController < ApplicationController
             BookList.create({name: "Read", user: user})
             BookList.create({name: "Want to read", user: user})
             # BookList.create({name: "Shared with me", user: user})
-            
+
             token = encode_token(user.id)
             render json: { user: UserSerializer.new(user), token: token }, status: :created
         else
             render json: { errors: user.errors.full_messages }, status: :not_acceptable
         end
+    end
+
+    def destroy
+        session_user.destroy
+        render json: session_user
     end
     
     private
