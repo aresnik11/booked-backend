@@ -9,6 +9,16 @@ class Api::V1::BookListBooksController < ApplicationController
         end
     end
 
+    def delete
+        book_list_book = BookListBook.find_by(book_list_book_params)
+        if book_list_book
+            book_list_book.delete
+            render json: book_list_book
+        else
+            render json: { errors: 'No book list book found' }, status: :not_found
+        end
+    end
+
     private
 
     def book_list_book_params

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :book_lists, only: [:create]
       resources :books, only: [:create]
       resources :book_list_books, only: [:create]
+      delete "/book_list_books/delete", to: "book_list_books#delete"
       get "/search", to: "books#search"
       post "/login", to: "auth#login"
       post "/signup", to: "users#create"
