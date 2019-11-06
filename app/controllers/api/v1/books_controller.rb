@@ -32,30 +32,24 @@ class Api::V1::BooksController < ApplicationController
         #grabbing search term and search type from fetch headers
         search_term = request.headers["Search-Term"]
         search_type = request.headers["Search-Type"]
+        start_index = request.headers["Start-Index"].to_i
         #replace spaces with plus signs
         searchable_term = search_term.gsub(/\s/,'+')
         #get books with that search term
-        #may want to add &filter=partial to not get dupes in All search - otherwise get results for viewability:"partial" and viewability:"no_pages"
         #format is q="search+term" for a search with that exact string
         #author/genre/title search format is q=intitle:"search+term" q=inauthor:"search+term" q=subject:"search+term"
         #search type is empty string if all, or the specific search format (i.e. intitle:)
         #langRestrict=en is restricting to only english books
-        response_string = RestClient.get("https://www.googleapis.com/books/v1/volumes?q=#{search_type}\"#{searchable_term}\"&langRestrict=en&maxResults=40&key=#{API_KEY}")
+        #&filter=partial to not get dupes in All search - otherwise get results for viewability:"partial" and viewability:"no_pages"
+        response_string = RestClient.get("https://www.googleapis.com/books/v1/volumes?q=#{search_type}\"#{searchable_term}\"&langRestrict=en&filter=partial&maxResults=40&startIndex=#{start_index}&key=#{API_KEY}")
         response_hash = JSON.parse(response_string)
-        #if there were 0 items found, send back an empty array of books
-        if response_hash["totalItems"] == 0
-            render json: {
-                totalItems: response_hash["totalItems"],
-                books: []
-            }
         #send the books response back to the frontend in json
-        # render json: response_hash
         #small thumbnail zoom=5
         #thumbnail zoom=1
         #small zoom=2
         #medium zoom=3
         #large zoom=4
-        else
+        if response_hash["items"]
             renderBooks = response_hash["items"].map do |book|
                 bookInfo = book["volumeInfo"]
                 {
@@ -76,6 +70,12 @@ class Api::V1::BooksController < ApplicationController
             render json: {
                 totalItems: response_hash["totalItems"],
                 books: renderBooks
+            }
+        #if there were 0 items found, send back an empty array of books
+        else
+            render json: {
+                totalItems: response_hash["totalItems"],
+                books: []
             }
         end
     end
