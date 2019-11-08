@@ -5,20 +5,6 @@ require 'dotenv/load'
 API_KEY = ENV['GOOGLE_BOOKS_API_KEY']
 
 class Api::V1::BooksController < ApplicationController
-    # def index
-    #     books = Book.all
-    #     render json: books
-    # end
-
-    # def show
-    #     book = Book.find_by(id: params[:id])
-    #     if book
-    #         render json: book
-    #     else
-    #         render json: { errors: 'No book found' }, status: :not_found
-    #     end
-    # end
-
     def create
         book = Book.find_or_create_by(book_params)
         if book.valid?

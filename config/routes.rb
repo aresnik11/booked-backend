@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       resources :books, only: [:create]
       resources :book_list_books, only: [:create]
       resources :users, only: [:index]
+      resources :messages, only: [:create]
+      resources :book_clubs, only: [:index, :show, :create, :destroy]
       delete "/book_list_books", to: "book_list_books#destroy"
       post "/share_book_lists", to: "book_lists#share"
       get "/search", to: "books#search"
@@ -17,4 +19,6 @@ Rails.application.routes.draw do
       delete "/users", to: "users#destroy"
     end
   end
+
+  # mount ActionCable.server => '/cable'
 end
