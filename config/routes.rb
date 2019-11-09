@@ -20,5 +20,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # mount ActionCable.server => '/cable'
+  #creates an action cable connection
+  mount ActionCable.server => '/cable'
 end
