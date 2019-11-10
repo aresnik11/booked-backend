@@ -6,7 +6,7 @@ class Api::V1::MessagesController < ApplicationController
             user: session_user
         })
         if message.save
-            BookClubChannel.broadcast_to(message.book_club, MessageSerializer.new(message))
+            MessagesChannel.broadcast_to(message.book_club, { type: "RECEIVE_MESSAGE", payload: MessageSerializer.new(message) })
             render json: message, status: :created
         else
             render json: { errors: message.errors.full_messages }, status: :not_acceptable

@@ -13,6 +13,21 @@ class Api::V1::BooksController < ApplicationController
             render json: { errors: book.errors.full_messages }, status: :not_acceptable
         end
     end
+
+    def show
+        #see if we can find the book via id (if came from booklist page)
+        book = Book.find_by(id: params[:id])
+        #see if we can find the book via volume_id (if came from the search page)
+        search_book = Book.find_by(volume_id: params[:id])
+        if book
+            render json: book
+        elsif search_book
+            render json: search_book
+        #otherwise, just send back the volume_id to look through the array of searched books
+        else
+            render json: { volume_id: params[:id] }
+        end
+    end
     
     def search
         #grabbing search term and search type from fetch headers

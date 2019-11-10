@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :book_lists, only: [:create, :destroy]
-      resources :books, only: [:create]
+      resources :books, only: [:create, :show]
       resources :book_list_books, only: [:create]
       resources :users, only: [:index]
       resources :messages, only: [:create]

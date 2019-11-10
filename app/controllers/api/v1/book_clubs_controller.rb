@@ -16,6 +16,7 @@ class Api::V1::BookClubsController < ApplicationController
     def create
         book_club = BookClub.new(book_club_params)
         if book_club.save
+            ActionCable.server.broadcast("book_clubs_channel", { type: "ADD_BOOK_CLUB", payload: BookClubSerializer.new(book_club) })
             render json: book_club, status: :created
         else
             render json: { errors: book_club.errors.full_book_clubs }, status: :not_acceptable
@@ -25,6 +26,7 @@ class Api::V1::BookClubsController < ApplicationController
     def destroy
         book_club = BookClub.find_by(id: params[:id])
         if book_club
+            ActionCable.server.broadcast("book_clubs_channel", { type: "REMOVE_BOOK_CLUB", payload: BookClubSerializer.new(book_club) })
             book_club.destroy
             render json: book_club
         else

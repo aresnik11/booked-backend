@@ -1,4 +1,4 @@
-class BookClubChannel < ApplicationCable::Channel
+class MessagesChannel < ApplicationCable::Channel
   def subscribed
     book_club = BookClub.find_by(id: params[:book_club_id])
     stream_for book_club
