@@ -12,7 +12,6 @@ class Api::V1::UsersController < ApplicationController
             BookList.create({name: "Favorites", user: user})
             BookList.create({name: "Read", user: user})
             BookList.create({name: "Want to read", user: user})
-            # BookList.create({name: "Shared with me", user: user})
 
             token = encode_token(user.id)
             render json: { user: UserSerializer.new(user), token: token }, status: :created

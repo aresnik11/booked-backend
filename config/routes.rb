@@ -12,7 +12,8 @@ Rails.application.routes.draw do
       resources :book_clubs, only: [:index, :show, :create, :destroy]
       delete "/book_list_books", to: "book_list_books#destroy"
       post "/share_book_lists", to: "book_lists#share"
-      get "/search", to: "books#search"
+      get "/search", to: "search_books#search"
+      get "/find_by_volume/:id", to: "books#find_by_volume"
       post "/login", to: "auth#login"
       get "/auto_login", to: "auth#auto_login"
       post "/signup", to: "users#create"
