@@ -19,7 +19,7 @@ class Api::V1::BookClubsController < ApplicationController
             ActionCable.server.broadcast("book_clubs_channel", { type: "ADD_BOOK_CLUB", payload: BookClubSerializer.new(book_club) })
             render json: book_club, status: :created
         else
-            render json: { errors: book_club.errors.full_book_clubs }, status: :not_acceptable
+            render json: { errors: book_club.errors.full_messages }, status: :not_acceptable
         end
     end
 

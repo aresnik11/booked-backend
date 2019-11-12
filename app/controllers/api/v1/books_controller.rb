@@ -23,9 +23,8 @@ class Api::V1::BooksController < ApplicationController
         book = Book.find_by(volume_id: params[:id])
         if book
             render json: book
-        #otherwise, just send back the volume_id to look through the array of searched books
         else
-            render json: { volume_id: params[:id] }
+            render json: { errors: 'No book found' }, status: :not_found
         end
     end
 

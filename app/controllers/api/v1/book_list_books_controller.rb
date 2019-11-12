@@ -2,7 +2,7 @@ class Api::V1::BookListBooksController < ApplicationController
     def create
         #if the book is already on the book list, don't want to add it again
         if BookListBook.find_by(book_list_book_params)
-            render json: { errors: 'Book already on book list' }, status: :not_acceptable
+            render json: { errors: ['Book already on book list'] }, status: :not_acceptable
         else
             book_list_book = BookListBook.new(book_list_book_params)
             if book_list_book.save
