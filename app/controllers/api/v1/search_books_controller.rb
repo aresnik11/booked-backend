@@ -32,11 +32,12 @@ class Api::V1::SearchBooksController < ApplicationController
                 bookInfo = book["volumeInfo"]
                 {
                     volume_id: book["id"],
-                    author: bookInfo["authors"] ? bookInfo["authors"][0] : false,
+                    author: bookInfo["authors"] ? bookInfo["authors"].join(", ") : false,
+                    # author: bookInfo["authors"] ? bookInfo["authors"][0] : false,
                     average_rating: bookInfo["averageRating"],
                     description: bookInfo["description"],
                     #some books don't have the imageLinks hash within volumeInfo, need to check that it exists before grabbing the image
-                    image: bookInfo["imageLinks"] ? bookInfo["imageLinks"]["thumbnail"] : false,
+                    image: bookInfo["imageLinks"] ? bookInfo["imageLinks"]["thumbnail"] : "https://www.abbeville.com/assets/common/images/edition_placeholder.png",
                     url: bookInfo["previewLink"],
                     page_count: bookInfo["pageCount"],
                     published_date: bookInfo["publishedDate"],
