@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get "/find_by_volume/:id", to: "books#find_by_volume"
       post "/login", to: "auth#login"
       get "/auto_login", to: "auth#auto_login"
+      get '/demo_login', to: 'auth#demo_login'
       post "/signup", to: "users#create"
       delete "/users", to: "users#destroy"
     end

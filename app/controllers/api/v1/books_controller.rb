@@ -1,5 +1,6 @@
 class Api::V1::BooksController < ApplicationController
     def create
+        # if the book already exists in our DB, don't need to create another one
         book = Book.find_or_create_by(book_params)
         if book.valid?
             render json: book

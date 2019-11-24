@@ -14,6 +14,7 @@ class Api::V1::BookListBooksController < ApplicationController
     end
 
     def destroy
+        # finds the book list book by book id and book list id
         book_list_book = BookListBook.find_by(book_list_book_params)
         if book_list_book
             book_list_book.destroy
@@ -27,9 +28,5 @@ class Api::V1::BookListBooksController < ApplicationController
 
     def book_list_book_params
         params.require(:book_list_book).permit(:book_id, :book_list_id)
-    end
-
-    def book_params
-        params.require(:book).permit(:title, :publisher, :published_date, :average_rating, :page_count, :image, :description, :url, :author, :subtitle, :volume_id)
     end
 end

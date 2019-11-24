@@ -1,5 +1,6 @@
 class Api::V1::BookListsController < ApplicationController
     def create
+        # create a new book list with the name inputted and the user as the session user
         book_list = BookList.new({name: book_list_params[:name], user: session_user})
         if book_list.save
             render json: book_list, status: :created

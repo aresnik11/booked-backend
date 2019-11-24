@@ -22,11 +22,6 @@ class Api::V1::SearchBooksController < ApplicationController
         response_string = RestClient.get("https://www.googleapis.com/books/v1/volumes?q=-\"free+preview\"#{search_type}\"#{searchable_term}\"&langRestrict=en&filter=partial&maxResults=40&startIndex=#{start_index}&key=#{API_KEY}")
         response_hash = JSON.parse(response_string)
         #send the books response back to the frontend in json
-        #small thumbnail zoom=5
-        #thumbnail zoom=1
-        #small zoom=2
-        #medium zoom=3
-        #large zoom=4
         if response_hash["items"]
             renderBooks = response_hash["items"].map do |book|
                 bookInfo = book["volumeInfo"]
