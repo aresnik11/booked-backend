@@ -23,8 +23,15 @@ class Api::V1::BookListsController < ApplicationController
         #find book list passed in params
         shared_book_list = BookList.find_by(id: params[:book_list_id])
         if shared_book_list
-            #create a new booklist with the same name as shared book list, but for the user that we want to share with (from params)
-            book_list = BookList.new({name: "Shared with me - #{shared_book_list.name}", user_id: params[:user_id]})
+            # if shared book list already has "Shared from" in name, don't want to add it again
+            if shared_book_list.name.include?("Shared from")
+                # format will be "Shared from amy - favorites", splitting on " - " and grabbing second element from array
+                book_list_name = shared_book_list.name.split(" - ")[1]
+                book_list = BookList.new({name: "Shared from #{session_user.username} - #{book_list_name}", user_id: params[:user_id]})
+            else
+                #create a new booklist with the same name as shared book list, but for the user that we want to share with (from params)
+                book_list = BookList.new({name: "Shared from #{session_user.username} - #{shared_book_list.name}", user_id: params[:user_id]})
+            end
             if book_list.save
                 #create booklist books for each book in the shared book list for our new book list
                 shared_book_list.books.each do |book|
