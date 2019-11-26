@@ -2,7 +2,13 @@
 
 Booked is a book app that allows users to search for books, add books to book lists, share book lists, and chat in online book clubs.
 
-![Plant Nanny](https://user-images.githubusercontent.com/8761638/69591015-5bb54d00-0fbf-11ea-8bc3-47d08e74aac8.png)
+The backend repo is deployed via Heroku, and the frontend repo ([here](https://github.com/aresnik11/booked-frontend)) is deployed via Netlify. Visit the site at [https://booked.netlify.com](https://booked.netlify.com).
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/73e38dc7-1ee2-4cf8-baf2-52821da94970/deploy-status)](https://app.netlify.com/sites/booked/deploys)
+
+![Booked Book Lists](https://user-images.githubusercontent.com/8761638/69598792-924b9180-0fd8-11ea-9500-6134ad2ead10.png)
+
+![Booked Books](https://user-images.githubusercontent.com/8761638/69598794-94adeb80-0fd8-11ea-834f-5dd299b52a67.png)
 
 ## Demo
 
@@ -56,12 +62,18 @@ To test on your own machine:
 4. Switch to Ruby version `2.6.1`
 5. Make sure `postgreSQL` is running on your computer, if not, download and run it
 6. Create an `.env` file in the top level directory
-7. In the `.env` file, create a constant variable `JWT_SECRET_KEY` and set it equal to whatever you want your secret key to be. Ex: `JWT_SECRET_KEY=test123`
+7. In the `.env` file, create a constant variable `JWT_SECRET_KEY` and set it equal to whatever you want your secret key to be. Ex:
+```
+JWT_SECRET_KEY=test123
+```
 8. In the `.env` file, create a constant variable `GOOGLE_BOOKS_API_KEY` and set it equal to your API key
-9. In terminal run `bundle install`
-10. In terminal run `rails db:migrate`
-11. In terminal run `rails s` to start the Rails server
-12. Follow instructions [here](https://github.com/aresnik11/booked-frontend) to run the frontend
-13. You will need to update `config/initializers/cors.rb` to accept origin requests from wherever your frontend will be hosted
+9. In terminal run
+```
+bundle install
+rails db:migrate
+rails s
+```
+10. Follow instructions [here](https://github.com/aresnik11/booked-frontend) to run the frontend
+11. You will need to update `config/initializers/cors.rb` to accept origin requests from wherever your frontend will be hosted
 
 ## Enjoy!
