@@ -70,6 +70,7 @@ JWT_SECRET_KEY=test123
 9. In terminal run
 ```
 bundle install
+rails db:create
 rails db:migrate
 rails s
 ```
