@@ -12,7 +12,9 @@ The backend repo is deployed via Heroku, and the frontend repo ([here](https://g
 
 ## Demo
 
-You can watch a live demo of the app [here](#) or visit the site at [https://booked.netlify.com](https://booked.netlify.com).
+[![Booked Demo](http://img.youtube.com/vi/ufUUwquSsTg/0.jpg)](http://www.youtube.com/watch?v=ufUUwquSsTg)
+
+You can watch a live demo of the app [here](http://www.youtube.com/watch?v=ufUUwquSsTg) or visit the site at [https://booked.netlify.com](https://booked.netlify.com).
 
 ## Technology Used
 
