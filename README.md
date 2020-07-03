@@ -2,7 +2,7 @@
 
 Booked is a book app that allows users to search for books, add books to book lists, share book lists, and chat in online book clubs.
 
-The backend repo is deployed via Heroku, and the frontend repo ([here](https://github.com/aresnik11/booked-frontend)) is deployed via Netlify. Visit the site at [https://booked.netlify.com](https://booked.netlify.com).
+The backend repo is deployed via Heroku, and the frontend repo ([here](https://github.com/aresnik11/booked-frontend)) is deployed via Netlify. Visit the site at [https://booked.netlify.app](https://booked.netlify.app).
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/73e38dc7-1ee2-4cf8-baf2-52821da94970/deploy-status)](https://app.netlify.com/sites/booked/deploys)
 
@@ -16,7 +16,7 @@ The backend repo is deployed via Heroku, and the frontend repo ([here](https://g
 " target="_blank"><img src="http://img.youtube.com/vi/ufUUwquSsTg/0.jpg" 
 alt="Booked Demo" width="240" height="180" /></a>
 
-You can watch a live demo of the app [here](http://www.youtube.com/watch?v=ufUUwquSsTg) or visit the site at [https://booked.netlify.com](https://booked.netlify.com).
+You can watch a live demo of the app [here](http://www.youtube.com/watch?v=ufUUwquSsTg) or visit the site at [https://booked.netlify.app](https://booked.netlify.app).
 
 ## Technology Used
 
@@ -57,7 +57,7 @@ Booked allows users to:
 
 ## How To Use
 
-Visit the site at [https://booked.netlify.com](https://booked.netlify.com).
+Visit the site at [https://booked.netlify.app](https://booked.netlify.app).
 
 To test on your own machine:
 1. While logged into a Google account, go to [https://console.developers.google.com/apis/library/books.googleapis.com](https://console.developers.google.com/apis/library/books.googleapis.com) and click **Enable**
